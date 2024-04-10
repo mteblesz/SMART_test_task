@@ -1,4 +1,4 @@
-﻿namespace TMAWarehouse.Api.DTOs;
+﻿namespace TMAWarehouse.DTOs;
 
 public class AddItemDto
 {

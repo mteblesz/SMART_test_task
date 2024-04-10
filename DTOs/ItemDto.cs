@@ -1,6 +1,6 @@
 ﻿using TMAWarehouse.Api.Models;
 
-namespace TMAWarehouse.Api.DTOs;
+namespace TMAWarehouse.DTOs;
 
 public class ItemDto
 {

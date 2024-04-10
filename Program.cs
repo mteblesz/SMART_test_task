@@ -1,4 +1,4 @@
-using TMAWarehouse.Api.Models;
+using TMAWarehouse.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

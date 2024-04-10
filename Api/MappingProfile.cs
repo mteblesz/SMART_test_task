@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using TMAWarehouse.Api.DTOs;
-using TMAWarehouse.Api.Models;
+using TMAWarehouse.DTOs;
+using TMAWarehouse.Models;
 
 namespace TMAWarehouse.Api;
 

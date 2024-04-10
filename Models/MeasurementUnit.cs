@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TMAWarehouse.Api.Models;
+namespace TMAWarehouse.Models;
 
 public partial class MeasurementUnit
 {

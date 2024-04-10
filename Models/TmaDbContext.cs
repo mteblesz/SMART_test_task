@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace TMAWarehouse.Api.Models;
+namespace TMAWarehouse.Models;
 
 public partial class TmaDbContext : DbContext
 {
@@ -35,7 +35,7 @@ public partial class TmaDbContext : DbContext
     {
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.HasKey(e => e.ItemId).HasName("PK__Items__727E838B4BC10118");
+            entity.HasKey(e => e.ItemId).HasName("PK__Items__727E838BF40FF854");
 
             entity.Property(e => e.ContactPerson).HasColumnType("text");
             entity.Property(e => e.Photo).HasMaxLength(1);
@@ -64,7 +64,7 @@ public partial class TmaDbContext : DbContext
 
         modelBuilder.Entity<ItemGroup>(entity =>
         {
-            entity.HasKey(e => e.GroupId).HasName("PK__ItemGrou__149AF30AE5BED344");
+            entity.HasKey(e => e.GroupId).HasName("PK__ItemGrou__149AF30AAF9897E9");
 
             entity.Property(e => e.GroupId).HasColumnName("GroupID");
             entity.Property(e => e.GroupName)
@@ -74,7 +74,7 @@ public partial class TmaDbContext : DbContext
 
         modelBuilder.Entity<ItemStatus>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__ItemStat__C8EE2063E9B7D38A");
+            entity.HasKey(e => e.StatusId).HasName("PK__ItemStat__C8EE2063011C8370");
 
             entity.Property(e => e.StatusName)
                 .HasMaxLength(50)
@@ -83,7 +83,7 @@ public partial class TmaDbContext : DbContext
 
         modelBuilder.Entity<MeasurementUnit>(entity =>
         {
-            entity.HasKey(e => e.UnitId).HasName("PK__Measurem__44F5ECB54F39A23A");
+            entity.HasKey(e => e.UnitId).HasName("PK__Measurem__44F5ECB53CE6D219");
 
             entity.Property(e => e.UnitName)
                 .HasMaxLength(20)
@@ -92,7 +92,7 @@ public partial class TmaDbContext : DbContext
 
         modelBuilder.Entity<Request>(entity =>
         {
-            entity.HasKey(e => e.RequestId).HasName("PK__Requests__33A8517A9F1ECA2F");
+            entity.HasKey(e => e.RequestId).HasName("PK__Requests__33A8517A84988A65");
 
             entity.Property(e => e.Comment).HasColumnType("text");
             entity.Property(e => e.EmployeeName)
@@ -120,7 +120,7 @@ public partial class TmaDbContext : DbContext
 
         modelBuilder.Entity<RequestStatus>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__RequestS__C8EE20632D38E47D");
+            entity.HasKey(e => e.StatusId).HasName("PK__RequestS__C8EE2063386429C3");
 
             entity.Property(e => e.StatusName)
                 .HasMaxLength(50)
