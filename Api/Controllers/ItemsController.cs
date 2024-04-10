@@ -33,8 +33,9 @@ public class ItemsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> AddItem([FromForm] Item item)
+    public async Task<ActionResult> AddItem([FromForm] AddItemDto dto)
     {
+        var item = _mapper.Map<Item>(dto);
         _context.Items.Add(item);
         await _context.SaveChangesAsync();
 
