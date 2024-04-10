@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddDbContext<TmaDbContext>();
+builder.Services.AddDbContext<TmaDbContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 // Add Razor Pages Services
