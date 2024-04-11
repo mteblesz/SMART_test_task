@@ -1,4 +1,5 @@
 using TMAWarehouse.Models;
+using TMAWarehouse.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TmaDbContext>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddScoped<IItemsService, ItemsService>();
 
 // Add Razor Pages Services
 builder.Services.AddRazorPages();
