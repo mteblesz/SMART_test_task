@@ -20,13 +20,3 @@ html {
 body {
     margin-bottom: 60px;
 }
-
-
-.dataTables_paginate.paging_simple_numbers {
-    display: flex;
-    justify-content: space-between;
-}
-
-.dataTables_paginate.paging_simple_numbers a.paginate_button {
-    margin: 0 20px;
-}
