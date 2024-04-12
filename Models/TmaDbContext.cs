@@ -37,7 +37,7 @@ public partial class TmaDbContext : DbContext
     {
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.HasKey(e => e.ItemId).HasName("PK__Items__727E838B4C1C5106");
+            entity.HasKey(e => e.ItemId).HasName("PK__Items__727E838BA39B1268");
 
             entity.Property(e => e.ContactPerson).HasColumnType("text");
             entity.Property(e => e.ItemName)
@@ -65,13 +65,12 @@ public partial class TmaDbContext : DbContext
 
             entity.HasOne(d => d.Photo).WithMany(p => p.Items)
                 .HasForeignKey(d => d.PhotoId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Items__PhotoId__5441852A");
         });
 
         modelBuilder.Entity<ItemGroup>(entity =>
         {
-            entity.HasKey(e => e.GroupId).HasName("PK__ItemGrou__149AF30AD7C9DF7F");
+            entity.HasKey(e => e.GroupId).HasName("PK__ItemGrou__149AF30A59B00B5E");
 
             entity.Property(e => e.GroupId).HasColumnName("GroupID");
             entity.Property(e => e.GroupName)
@@ -81,7 +80,7 @@ public partial class TmaDbContext : DbContext
 
         modelBuilder.Entity<ItemStatus>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__ItemStat__C8EE2063C10AF11E");
+            entity.HasKey(e => e.StatusId).HasName("PK__ItemStat__C8EE2063597358AC");
 
             entity.Property(e => e.StatusName)
                 .HasMaxLength(50)
@@ -90,7 +89,7 @@ public partial class TmaDbContext : DbContext
 
         modelBuilder.Entity<MeasurementUnit>(entity =>
         {
-            entity.HasKey(e => e.UnitId).HasName("PK__Measurem__44F5ECB5FCE19A5E");
+            entity.HasKey(e => e.UnitId).HasName("PK__Measurem__44F5ECB5BB1C8AFD");
 
             entity.Property(e => e.UnitName)
                 .HasMaxLength(20)
@@ -99,12 +98,12 @@ public partial class TmaDbContext : DbContext
 
         modelBuilder.Entity<Photo>(entity =>
         {
-            entity.HasKey(e => e.PhotoId).HasName("PK__Photos__21B7B5E2D4CD0FFA");
+            entity.HasKey(e => e.PhotoId).HasName("PK__Photos__21B7B5E2BF10C67D");
         });
 
         modelBuilder.Entity<Request>(entity =>
         {
-            entity.HasKey(e => e.RequestId).HasName("PK__Requests__33A8517A3722BEBD");
+            entity.HasKey(e => e.RequestId).HasName("PK__Requests__33A8517A8F0324AF");
 
             entity.Property(e => e.Comment).HasColumnType("text");
             entity.Property(e => e.EmployeeName)
@@ -130,7 +129,7 @@ public partial class TmaDbContext : DbContext
 
         modelBuilder.Entity<RequestStatus>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__RequestS__C8EE20637D7C9077");
+            entity.HasKey(e => e.StatusId).HasName("PK__RequestS__C8EE2063BA2BC7F3");
 
             entity.Property(e => e.StatusName)
                 .HasMaxLength(50)

@@ -137,6 +137,15 @@ public class DbSeeder
             },
             new Item
             {
+                ItemName = "Tea",
+                ItemGroupId = 5,
+                MeasurementUnitId = 3,
+                Quantity = 2,
+                PriceWithoutVat = 12.00m,
+                ItemStatusId = 1,
+            },
+            new Item
+            {
                 ItemName = "Coffee",
                 ItemGroupId = 6,
                 MeasurementUnitId = 8,
@@ -146,6 +155,15 @@ public class DbSeeder
                 StorageLocation = "Warehouse A",
                 ContactPerson = "Frank Harris",
                 PhotoId = photos[7].PhotoId,
+            },
+            new Item
+            {
+                ItemName = "Paper",
+                ItemGroupId = 5,
+                MeasurementUnitId = 3,
+                Quantity = 50,
+                PriceWithoutVat = 20.00m,
+                ItemStatusId = 1,
             },
             new Item
             {
@@ -170,7 +188,7 @@ public class DbSeeder
                 StorageLocation = "Warehouse B",
                 ContactPerson = "Mason Taylor",
                 PhotoId = photos[9].PhotoId,
-            }
+            },
         };
 
         _dbContext.Items.AddRange(items);

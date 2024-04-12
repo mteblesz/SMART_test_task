@@ -23,7 +23,7 @@ public partial class Item
 
     public string? ContactPerson { get; set; }
 
-    public int PhotoId { get; set; }
+    public int? PhotoId { get; set; }
 
     public virtual ItemGroup ItemGroup { get; set; } = null!;
 
@@ -31,7 +31,7 @@ public partial class Item
 
     public virtual MeasurementUnit MeasurementUnit { get; set; } = null!;
 
-    public virtual Photo Photo { get; set; } = null!;
+    public virtual Photo? Photo { get; set; }
 
     public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
 }

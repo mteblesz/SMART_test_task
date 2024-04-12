@@ -20,6 +20,11 @@
 
   <ItemGroup>
     <Folder Include="Data\Pictures\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\no_photo.jpg" />
   </ItemGroup>
 
 </Project>
