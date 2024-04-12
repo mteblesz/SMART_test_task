@@ -41,6 +41,11 @@
                     <td>@(item.StorageLocation ?? "-")</td>
                     <td>@(item.ContactPerson ?? "-")</td>
                     <td>@item.ItemGroup</td>
+                    <td>
+                        <form method="post" asp-page-handler="DeleteItem" asp-route-id="@item.ItemId">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             }
         }

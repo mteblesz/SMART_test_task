@@ -23,4 +23,10 @@ public class ItemListsModel : PageModel
         return Page();
     }
 
+    public async Task<IActionResult> OnPostDeleteItem(int id)
+    {
+        await _itemsService.DeleteItem(id);
+
+        return RedirectToPage("/Coordinator/ItemList");
+    }
 }

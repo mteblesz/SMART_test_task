@@ -10,6 +10,7 @@ namespace TMAWarehouse.Services;
 public interface IItemsService
 {
     Task<List<ItemDto>> GetItems();
+    Task DeleteItem(int id);
 }
 
 public class ItemsService : IItemsService
@@ -54,15 +55,21 @@ public class ItemsService : IItemsService
         await _context.SaveChangesAsync();
     }
 
-    public async void RemoveItem(int id)
+    public async Task DeleteItem(int id)
     {
         var item = await _context.Items.FindAsync(id);
         if (item == null)
         {
             return;
         }
-
-        _context.Items.Remove(item);
-        await _context.SaveChangesAsync();
+        try
+        {
+            _context.Items.Remove(item);
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateException ex) 
+        {
+                
+        }
     }
 }
