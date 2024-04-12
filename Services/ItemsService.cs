@@ -28,7 +28,8 @@ public class ItemsService : IItemsService
         var items = _context.Items
             .Include(i => i.ItemGroup)
             .Include(i => i.MeasurementUnit)
-            .Include(i => i.ItemStatus);
+            .Include(i => i.ItemStatus)
+            .Include(i => i.Photo);
         var result = _mapper.Map<List<ItemDto>>(items);
 
         return result;

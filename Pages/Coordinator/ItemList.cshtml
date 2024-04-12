@@ -1,0 +1,66 @@
+﻿@page
+@using TMAWarehouse.DTOs
+@model ItemListsModel
+
+<h1>List of Items</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Item</th>
+            <th>Status</th>
+            <th>Quantity</th>
+            <th>Price (PLN)</th>
+            <th>Storage Location</th>
+            <th>Contact Person</th>
+            <th>Group</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Items.Any())
+        {
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @if (item.PhotoBinary != null && item.PhotoBinary.Length > 0)
+                        {
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(item.PhotoBinary))" alt="Item Photo" style="max-height: 70px;">
+                        }
+                        else
+                        {
+                            <img src="~/images/no_photo.jpg" alt="No Photo" style="max-height: 70px;">
+                        }
+                    </td>
+                    <td>@item.ItemName</td>
+                    <td>@item.ItemStatus</td>s
+                    <td>@item.Quantity @item.MeasurementUnit</td>
+                    <td>@item.PriceWithoutVat</td>
+
+                    <td>@(item.StorageLocation ?? "-")</td>
+                    <td>@(item.ContactPerson ?? "-")</td>
+                    <td>@item.ItemGroup</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="2">No items found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+
+}
