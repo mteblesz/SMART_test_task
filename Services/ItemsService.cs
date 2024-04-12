@@ -9,8 +9,11 @@ namespace TMAWarehouse.Services;
 
 public interface IItemsService
 {
-    Task<List<ItemDto>> GetItems();
+    Task AddItem([FromForm] AddItemDto dto);
     Task DeleteItem(int id);
+    Task<ItemDto> GetItem(int id);
+    Task<List<ItemDto>> GetItems();
+    Task UpdateItem(ItemDto updated);
 }
 
 public class ItemsService : IItemsService
@@ -36,23 +39,17 @@ public class ItemsService : IItemsService
         return result;
     }
 
-    public async void AddItem([FromForm] AddItemDto dto)
+    public async Task<ItemDto> GetItem(int id)
     {
-        var item = _mapper.Map<Item>(dto);
-        _context.Items.Add(item);
-        await _context.SaveChangesAsync();
-    }
+        var items = _context.Items
+            .Include(i => i.ItemGroup)
+            .Include(i => i.MeasurementUnit)
+            .Include(i => i.ItemStatus)
+            .Include(i => i.Photo)
+            .FirstOrDefault(i => i.ItemId == id);
+        var result = _mapper.Map<ItemDto>(items);
 
-    public async void UpdateItem(int id, AddItemDto updated)
-    {
-        var item = await _context.Items.FindAsync(id);
-        if (item == null)
-        {
-            return;
-        }
-
-        _context.Entry(item).CurrentValues.SetValues(updated); // no mapping needed
-        await _context.SaveChangesAsync();
+        return result;
     }
 
     public async Task DeleteItem(int id)
@@ -67,9 +64,29 @@ public class ItemsService : IItemsService
             _context.Items.Remove(item);
             await _context.SaveChangesAsync();
         }
-        catch (DbUpdateException ex) 
+        catch (DbUpdateException ex)
         {
-                
+
         }
+    }
+
+
+    public async Task UpdateItem(ItemDto updated)
+    {
+        var item = await _context.Items.FindAsync(updated.ItemId);
+        if (item == null)
+        {
+            return;
+        }
+
+        _context.Entry(item).CurrentValues.SetValues(updated); // no mapping needed for props
+        // TODO edit other tables
+        await _context.SaveChangesAsync();
+    }
+    public async Task AddItem(AddItemDto dto)
+    {
+        var item = _mapper.Map<Item>(dto);
+        _context.Items.Add(item);
+        await _context.SaveChangesAsync();
     }
 }

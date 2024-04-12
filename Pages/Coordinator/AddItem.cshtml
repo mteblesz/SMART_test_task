@@ -1,0 +1,17 @@
+﻿@page
+@model AddItemModel
+@{
+    ViewData["Title"] = "Add Item";
+}
+
+<h1>Add Item</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="itemName">Item Name:</label>
+        <input type="text" class="form-control" id="itemName" name="ItemName">
+    </div>
+    <!-- Add other input fields for item properties here -->
+
+    <button type="submit" class="btn btn-primary">Add Item</button>
+</form>

@@ -15,7 +15,9 @@
             <th>Storage Location</th>
             <th>Contact Person</th>
             <th>Group</th>
-            <th></th>
+            <th>
+                <a class="btn btn-success" asp-area="" asp-page="/Coordinator/AddItem">Add Item</a>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -43,8 +45,9 @@
                     <td>@(item.ContactPerson ?? "-")</td>
                     <td>@item.ItemGroup</td>
                     <td>
-                        <form method="post" asp-page-handler="DeleteItem" asp-route-id="@item.ItemId">
-                            <button type="submit">Delete</button>
+                        <form method="get" asp-page="/Coordinator/EditItem">
+                            <input type="hidden" name="id" value="@item.ItemId" />
+                            <button type="submit" class="btn btn-warning ">Edit</button>
                         </form>
                     </td>
                 </tr>

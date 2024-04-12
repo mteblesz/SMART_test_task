@@ -24,4 +24,8 @@ public class ItemDto
 
     public byte[]? PhotoBinary { get; set; }
 
+    public int ItemGroupId { get; set; }
+    public int MeasurementUnitId { get; set; }
+    public int ItemStatusId { get; set; }
+    public int? PhotoId { get; set; }
 }

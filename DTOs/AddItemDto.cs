@@ -2,6 +2,8 @@
 
 public class AddItemDto
 {
+    public required string ItemName { get; set; }
+
     public int ItemGroupId { get; set; }
 
     public int MeasurementUnitId { get; set; }
