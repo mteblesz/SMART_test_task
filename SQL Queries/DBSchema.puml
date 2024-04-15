@@ -1,0 +1,67 @@
+@startuml
+
+entity MeasurementUnits {
+  + UnitId : INT
+  --
+  + UnitName : VARCHAR(20)
+}
+
+entity ItemGroups {
+  + GroupID : INT
+  --
+  + GroupName : VARCHAR(30)
+}
+
+entity ItemStatuses {
+  + StatusId : INT
+  --
+  + StatusName : VARCHAR(50)
+}
+
+entity Photos {
+  + PhotoId : INT
+  --
+  + PhotoBinary : VARBINARY(max)
+}
+
+entity Items {
+  + ItemId : INT
+  --
+  + ItemName : VARCHAR(255)
+  + ItemGroupId : INT
+  + MeasurementUnitId : INT
+  + Quantity : INT
+  + PriceWithoutVat : DECIMAL(10,2)
+  + ItemStatusId : INT
+  + StorageLocation : VARCHAR(255)
+  + ContactPerson : TEXT
+  + PhotoId : INT
+}
+
+entity RequestStatuses {
+  + StatusId : INT
+  --
+  + StatusName : VARCHAR(50)
+}
+
+entity Requests {
+  + RequestId : INT
+  --
+  + EmployeeName : VARCHAR(255)
+  + ItemId : INT
+  + MeasurementUnitId : INT
+  + Quantity : INT
+  + PriceWithoutVat : DECIMAL(10,2)
+  + Comment : TEXT
+  + RequestStatusId : INT
+}
+
+ItemGroups }o-d-|| Items
+ItemStatuses }o-d-|| Items
+RequestStatuses }o-r-|| Requests
+MeasurementUnits }o-d-|| Requests
+MeasurementUnits }o-l-|| Items
+Photos }o-r-|| Items
+Items }o-r-|| Requests
+
+@enduml
