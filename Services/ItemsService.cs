@@ -9,11 +9,10 @@ namespace TMAWarehouse.Services;
 
 public interface IItemsService
 {
+    Task<EditItemDto> GetItem(int id);
+    Task<List<ItemDto>> GetItems();
     Task AddItem([FromForm] AddItemDto dto);
     Task DeleteItem(int id);
-    Task<EditItemDto> GetItemToEdit(int id);
-    Task<AddRequestDto> GetItemToOrder(int id);
-    Task<List<ItemDto>> GetItems();
     Task UpdateItem(EditItemDto dto);
 }
 
@@ -28,19 +27,7 @@ public class ItemsService : IItemsService
         _mapper = mapper;
     }
 
-    public async Task<List<ItemDto>> GetItems()
-    {
-        var items = _context.Items
-            .Include(i => i.ItemGroup)
-            .Include(i => i.MeasurementUnit)
-            .Include(i => i.ItemStatus)
-            .Include(i => i.Photo);
-        var result = _mapper.Map<List<ItemDto>>(items);
-
-        return result;
-    }
-
-    public async Task<EditItemDto> GetItemToEdit(int id)
+    public async Task<EditItemDto> GetItem(int id)
     {
         var items = _context.Items
             .Include(i => i.ItemGroup)
@@ -53,12 +40,14 @@ public class ItemsService : IItemsService
         return result;
     }
 
-    public async Task<AddRequestDto> GetItemToOrder(int id)
+    public async Task<List<ItemDto>> GetItems()
     {
         var items = _context.Items
+            .Include(i => i.ItemGroup)
             .Include(i => i.MeasurementUnit)
-            .FirstOrDefault(i => i.ItemId == id);
-        var result = _mapper.Map<AddRequestDto>(items);
+            .Include(i => i.ItemStatus)
+            .Include(i => i.Photo);
+        var result = _mapper.Map<List<ItemDto>>(items);
 
         return result;
     }

@@ -11,12 +11,9 @@ namespace TMAWarehouse.Pages.Employee;
 
 public class OrderItemModel : PageModel
 {
-
-    private readonly IItemsService _itemsService;
     private readonly IRequestsService _requestsService;
-    public OrderItemModel(IItemsService itemsService, IRequestsService requestsService)
+    public OrderItemModel(IRequestsService requestsService)
     {
-        _itemsService = itemsService;
         _requestsService = requestsService;
     }
 
@@ -25,7 +22,7 @@ public class OrderItemModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(int id)
     {
-        Item = await _itemsService.GetItemToOrder(id);
+        Item = await _requestsService.GetItemInfo(id);
 
         return Page();
     }
