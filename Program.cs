@@ -13,6 +13,7 @@ builder.Services.AddScoped<DbSeeder>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IItemsService, ItemsService>();
 builder.Services.AddScoped<IEnumsService, EnumsService>();
+builder.Services.AddScoped<IRequestsService, RequestsService>();
 
 // Add Razor Pages Services
 builder.Services.AddRazorPages();

@@ -1,10 +1,9 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TMAWarehouse.DTOs;
 using TMAWarehouse.Services;
 
-namespace TMAWarehouse.Pages.Coordinator;
+namespace TMAWarehouse.Pages.Employee;
 public class ItemListModel : PageModel
 {
     public List<ItemDto> Items { get; set; } = null!;
