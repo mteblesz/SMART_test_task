@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TMAWarehouse.DTOs;
 using TMAWarehouse.Models;
+using TMAWarehouse.Services;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TMAWarehouse.Api.Controllers;
 [ApiController]
@@ -11,64 +13,46 @@ namespace TMAWarehouse.Api.Controllers;
 [Route("[area]/[controller]")]
 public class ItemsController : ControllerBase
 {
-    private readonly TmaDbContext _context;
-    private readonly IMapper _mapper;
+    private readonly IItemsService _service;
 
-    public ItemsController(TmaDbContext context, IMapper mapper)
+    public ItemsController(IItemsService service)
     {
-        _context = context;
-        _mapper = mapper;
+        _service = service;
     }
 
     [HttpGet]
-    public ActionResult<List<ItemDto>> GetItems()
+    public async Task<ActionResult<List<ItemDto>>> GetItems()
     {
-        var items = _context.Items
-            .Include(i => i.ItemGroup)
-            .Include(i => i.MeasurementUnit)
-            .Include(i => i.ItemStatus);
-        var result = _mapper.Map<List<ItemDto>>(items);
-
+        var result = await _service.GetItems();
         return Ok(result);
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<EditItemDto>> GetItem([FromRoute]int id)
+    {
+        var result = await _service.GetItem(id);
+        return Ok(result);
+    }
+
 
     [HttpPost]
     public async Task<ActionResult> AddItem([FromForm] AddItemDto dto)
     {
-        var item = _mapper.Map<Item>(dto);
-        _context.Items.Add(item);
-        await _context.SaveChangesAsync();
-
+        await _service.AddItem(dto);
         return Created();
     }
 
-    [HttpPatch("{id}")]
-    public async Task<ActionResult> UpdateItem(int id, [FromBody] AddItemDto updated)
+    [HttpPatch]
+    public async Task<ActionResult> UpdateItem([FromForm] EditItemDto updated)
     {
-        var item = await _context.Items.FindAsync(id);
-        if (item == null)
-        {
-            return NotFound();
-        }
-
-        _context.Entry(item).CurrentValues.SetValues(updated); // no mapping needed
-        await _context.SaveChangesAsync();
-
+        await _service.UpdateItem(updated);
         return NoContent();
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult> RemoveItem(int id)
+    public async Task<ActionResult> DeleteItem([FromRoute] int id)
     {
-        var item = await _context.Items.FindAsync(id);
-        if (item == null)
-        {
-            return NotFound();
-        }
-
-        _context.Items.Remove(item);
-        await _context.SaveChangesAsync();
-
+        await _service.DeleteItem(id);
         return NoContent();
     }
 }

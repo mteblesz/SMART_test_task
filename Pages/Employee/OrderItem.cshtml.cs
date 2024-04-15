@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using TMAWarehouse.DTOs;
 using TMAWarehouse.Models;
@@ -11,21 +12,23 @@ namespace TMAWarehouse.Pages.Employee;
 
 public class OrderItemModel : PageModel
 {
-
-    private readonly IItemsService _itemsService;
     private readonly IRequestsService _requestsService;
-    public OrderItemModel(IItemsService itemsService, IRequestsService requestsService)
+    public OrderItemModel(IRequestsService requestsService)
     {
-        _itemsService = itemsService;
         _requestsService = requestsService;
     }
+
+    [BindProperty]
+    [Required]
+    [StringLength(255, ErrorMessage = "Employee name cannot exceed {1} characters.")]
+    public string EmployeeName { get; set; } = "";
 
     [BindProperty]
     public AddRequestDto Item { get; set; } = null!;
 
     public async Task<IActionResult> OnGetAsync(int id)
     {
-        Item = await _itemsService.GetItemToOrder(id);
+        Item = await _requestsService.GetItemInfo(id);
 
         return Page();
     }
@@ -38,7 +41,7 @@ public class OrderItemModel : PageModel
         }
         try
         {
-            await _requestsService.OrderItem(Item, "empty name"); // TODO replace string with employee name
+            await _requestsService.OrderItem(Item, EmployeeName); 
         }
         catch (ArgumentException ex)
         {

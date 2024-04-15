@@ -8,6 +8,7 @@ namespace TMAWarehouse.Services;
 
 public interface IRequestsService
 {
+    Task<AddRequestDto> GetItemInfo(int id);
     Task OrderItem(AddRequestDto dto, string employeeName);
     Task<List<RequestDto>> GetRequests();
     Task ConfirmRequest(int requestId);
@@ -23,6 +24,16 @@ public class RequestsService : IRequestsService
     {
         _context = context;
         _mapper = mapper;
+    }
+
+    public async Task<AddRequestDto> GetItemInfo(int id)
+    {
+        var items = _context.Items
+            .Include(i => i.MeasurementUnit)
+            .FirstOrDefault(i => i.ItemId == id);
+        var result = _mapper.Map<AddRequestDto>(items);
+
+        return result;
     }
 
     public async Task OrderItem(AddRequestDto dto, string employeeName)

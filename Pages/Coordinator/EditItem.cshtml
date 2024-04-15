@@ -10,6 +10,9 @@
     <form class="text-right" method="post" asp-page-handler="DeleteItem">
         <button class="btn btn-danger" type="submit">Delete</button>
     </form>
+    <div class="text-right">
+        <span class="text-danger">@Html.ValidationMessage("Deletion")</span>
+    </div>
 
 
     <form method="post" enctype="multipart/form-data" asp-page-handler="asp-page-handler">
@@ -141,6 +144,8 @@
         </div>
 
         <!--Photo file-->
+        <input type="hidden" asp-for="@Model.Item.PhotoBinary" />
+
         <div class="form-group row mt-1">
             <label for="photo" class="col-sm-2 col-form-label">Photo:</label>
             <div class="col-sm-2">
