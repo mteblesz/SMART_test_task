@@ -8,9 +8,17 @@
 <div class="form-group row mt-1">
     <div class="col-sm-2"></div>
     <div class="col-sm-10">
-        <span class="text-danger" asp-validation-for="@Model.Request"></span>
+        @if (!ModelState.IsValid)
+        {
+            <span class="alert alert-danger mt-2" asp-validation-for="@Model.Request" ></span>
+        }
+        else
+        {
+            <span class="alert alert-danger mt-1" id="errorAlert" style="display: none;"></span>
+        }
     </div>
 </div>
+
 <table class="table_">
     <thead>
         <tr>
@@ -90,5 +98,4 @@
             $('.table_').DataTable();
         });
     </script>
-
 }
