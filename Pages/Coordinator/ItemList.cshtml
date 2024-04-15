@@ -4,10 +4,13 @@
     ViewData["Title"] = "Item List";
 }
 <div class="row">
-    <div class="col-auto">
-        <h1>Edit items</h1>
+    <div class="col-lg-4">
+        <a class="btn btn-danger btn-lg btn-block" asp-area="" asp-page="/Coordinator/RequestList">Review Requests</a>
     </div>
-    <div class="col text-right">
+    <div class="col-lg-4">
+        <h1 class="text-center">Items:</h1>
+    </div>
+    <div class="col-lg-4 text-right">
         <a class="btn btn-success btn-lg" asp-area="" asp-page="/Coordinator/AddItem">Add Item</a>
     </div>
 </div>
@@ -75,7 +78,11 @@
 
     <script>
         $(document).ready(function () {
-            $('.table_').DataTable();
+            $('.table_').DataTable({
+                "columnDefs": [
+                    { "orderable": false, "targets": [0, 8] } 
+                ]
+            });
         });
     </script>
 
