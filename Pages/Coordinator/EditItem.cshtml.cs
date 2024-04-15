@@ -42,15 +42,19 @@ namespace TMAWarehouse.Pages.Coordinator
             return Page();
         }
 
-        public async Task<IActionResult> OnPostDeleteItem()
+        public async Task<IActionResult> OnPostDeleteItem(int id)
         {
             try
             {
-                await _itemsService.DeleteItem(Item.ItemId);
+                await _itemsService.DeleteItem(id);
             }
             catch (ArgumentException ex)
             {
                 ModelState.AddModelError("Deletion", ex.Message);
+                // Repopulate lists 
+                MeasurementUnits = await _enumsService.GetMeasurementUnits();
+                ItemGroups = await _enumsService.GetItemGroups();
+                ItemStatuses = await _enumsService.GetItemStatuses();
                 return Page();
             }
 

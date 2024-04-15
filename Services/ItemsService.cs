@@ -54,11 +54,10 @@ public class ItemsService : IItemsService
 
     public async Task DeleteItem(int id)
     {
-        var item = await _context.Items.FindAsync(id);
-        if (item == null)
-        {
-            return;
-        }
+        var item = await _context.Items
+            .Include(i => i.Photo)
+            .FirstOrDefaultAsync(i => i.ItemId == id)
+            ?? throw new ArgumentException("Item with this id does not exist.");
         try
         {
             var photo = item.Photo;
@@ -70,7 +69,7 @@ public class ItemsService : IItemsService
         }
         catch (DbUpdateException ex)
         {
-            throw new ArgumentException(ex.Message);
+            throw new ArgumentException("Dabase error occured.");
         }
     }
 

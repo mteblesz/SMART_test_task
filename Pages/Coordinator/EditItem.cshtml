@@ -8,6 +8,7 @@
     <h1>Edit Item</h1>
 
     <form class="text-right" method="post" asp-page-handler="DeleteItem">
+        <input type="hidden" name="id" value="@Model.Item.ItemId" />
         <button class="btn btn-danger" type="submit">Delete</button>
     </form>
     <div class="text-right">
