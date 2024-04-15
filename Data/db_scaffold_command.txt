@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Data Source=.\SQLEXPRESS;Initial Catalog=TMA_DB;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
