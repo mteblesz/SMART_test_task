@@ -21,7 +21,7 @@ public class OrderItemModel : PageModel
     }
 
     [BindProperty]
-    public RequestItemDto Item { get; set; } = null!;
+    public AddRequestDto Item { get; set; } = null!;
 
     public async Task<IActionResult> OnGetAsync(int id)
     {

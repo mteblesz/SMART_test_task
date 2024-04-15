@@ -7,7 +7,7 @@ namespace TMAWarehouse.Services;
 
 public interface IRequestsService
 {
-    Task OrderItem(RequestItemDto dto, string employeeName);
+    Task OrderItem(AddRequestDto dto, string employeeName);
 }
 
 public class RequestsService : IRequestsService
@@ -21,7 +21,7 @@ public class RequestsService : IRequestsService
         _mapper = mapper;
     }
 
-    public async Task OrderItem(RequestItemDto dto, string employeeName)
+    public async Task OrderItem(AddRequestDto dto, string employeeName)
     {
         if (dto.OrderQuantity > dto.MaxQuantity) 
         {

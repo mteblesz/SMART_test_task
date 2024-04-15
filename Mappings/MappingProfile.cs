@@ -30,7 +30,7 @@ public class MappingProfile : Profile
                  src => src.Photo != null ? src.Photo!.PhotoBinary : null
                  ));
 
-        CreateMap<Item, RequestItemDto>()
+        CreateMap<Item, AddRequestDto>()
              .ForMember(dest => dest.MeasurementUnitName, opt => opt.MapFrom(src => src.MeasurementUnit.UnitName))
              .ForMember(dest => dest.MaxQuantity, opt => opt.MapFrom(src => src.Quantity))
              .ForMember(dest => dest.OrderQuantity, opt => opt.MapFrom(src => src.Quantity));

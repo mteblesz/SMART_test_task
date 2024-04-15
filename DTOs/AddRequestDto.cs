@@ -2,7 +2,7 @@
 
 namespace TMAWarehouse.DTOs;
 
-public class RequestItemDto
+public class AddRequestDto
 {
     public int ItemId { get; set; }
     public required string ItemName { get; set; }
