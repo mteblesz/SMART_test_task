@@ -72,12 +72,16 @@ public class ItemsService : IItemsService
         }
         try
         {
+            var photo = item.Photo;
             _context.Items.Remove(item);
+            if (photo != null)
+                _context.Photos.Remove(photo);
+
             await _context.SaveChangesAsync();
         }
         catch (DbUpdateException ex)
         {
-
+            throw new ArgumentException(ex.Message);
         }
     }
 
@@ -89,19 +93,22 @@ public class ItemsService : IItemsService
 
         var updated = _mapper.Map<Item>(dto);
 
-        var oldPhoto = await _context.Photos.FindAsync(item.PhotoId);
-        if (oldPhoto != null)
+        if (dto.PhotoBinary != null)
         {
-            oldPhoto.PhotoBinary = dto.PhotoBinary;
-            await _context.SaveChangesAsync();
-            updated.PhotoId = oldPhoto.PhotoId;
-        }
-        else
-        {
-            var photo = new Photo { PhotoBinary = dto.PhotoBinary };
-            _context.Photos.Add(photo);
-            await _context.SaveChangesAsync();
-            updated.PhotoId = photo.PhotoId;
+            var oldPhoto = await _context.Photos.FindAsync(item.PhotoId);
+            if (oldPhoto != null)
+            {
+                oldPhoto.PhotoBinary = dto.PhotoBinary;
+                await _context.SaveChangesAsync();
+                updated.PhotoId = oldPhoto.PhotoId;
+            }
+            else
+            {
+                var photo = new Photo { PhotoBinary = dto.PhotoBinary };
+                _context.Photos.Add(photo);
+                await _context.SaveChangesAsync();
+                updated.PhotoId = photo.PhotoId;
+            }
         }
 
         _context.Entry(item).CurrentValues.SetValues(updated); 
