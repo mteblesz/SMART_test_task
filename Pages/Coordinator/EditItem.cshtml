@@ -3,59 +3,147 @@
 @{
     ViewData["Title"] = "Edit Item";
 }
-<h1>Edit Item</h1>
+
 <div class="w-75 mx-auto">
+    <h1>Edit Item</h1>
+
     <form class="text-right" method="post" asp-page-handler="DeleteItem">
-        <button class="btn btn-danger"  type="submit">Delete</button>
+        <button class="btn btn-danger" type="submit">Delete</button>
     </form>
 
-    <form method="post">
+
+    <form method="post" enctype="multipart/form-data" asp-page-handler="asp-page-handler">
+        <!--Hidden ItemId-->
+        <input type="hidden" asp-for="@Model.Item.ItemId" />
+
+        <!--Item Name-->
         <div class="form-group row mt-1">
-            <label for="itemName" class="col-sm-3 col-form-label">Item:</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="itemName" name="ItemName" value="@Model.Item.ItemName">
+            <label for="itemName" class="col-sm-2 col-form-label">Item:</label>
+            <div class="col-sm-10">
+                <input class="form-control" asp-for="@Model.Item.ItemName">
             </div>
         </div>
         <div class="form-group row mt-1">
-            <label for="itemStatus" class="col-sm-3 col-form-label">Status:</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="itemStatus" name="ItemStatus" value="@Model.Item.ItemStatus">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <span class="text-danger" asp-validation-for="@Model.Item.ItemName"></span>
+            </div>
+        </div>
+
+        <!--Group-->
+        <div class="form-group row mt-1">
+            <label for="itemGroup" class="col-sm-2 col-form-label">Group:</label>
+            <div class="col-sm-5">
+                <select class="form-control" asp-for="@Model.Item.ItemGroupId">
+                    <option value="">Select Group...</option>
+                    @foreach (var group in Model.ItemGroups)
+                    {
+                        <option value="@group.GroupId">@group.GroupName</option>
+                    }
+                </select>
             </div>
         </div>
         <div class="form-group row mt-1">
-            <label for="quantity" class="col-sm-3 col-form-label">Quantity:</label>
-            <div class="col-sm-9">
-                <input type="number" class="form-control" id="quantity" name="Quantity" value="@Model.Item.Quantity">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <span class="text-danger" asp-validation-for="@Model.Item.ItemGroupId"></span>
+            </div>
+        </div>
+
+        <!--Status-->
+        <div class="form-group row mt-1">
+            <label for="itemStatus" class="col-sm-2 col-form-label">Status:</label>
+            <div class="col-sm-5">
+                <select class="form-control" asp-for="@Model.Item.ItemStatusId">
+                    <option value="">Select Status...</option>
+                    @foreach (var status in Model.ItemStatuses)
+                    {
+                        <option value="@status.StatusId">@status.StatusName</option>
+                    }
+                </select>
             </div>
         </div>
         <div class="form-group row mt-1">
-            <label for="price" class="col-sm-3 col-form-label">Price (PLN):</label>
-            <div class="col-sm-9">
-                <input type="number" class="form-control" id="price" name="Price" value="@Model.Item.PriceWithoutVat">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <span class="text-danger" asp-validation-for="@Model.Item.ItemStatusId"></span>
+            </div>
+        </div>
+
+        <!--Quantity-->
+        <div class="form-group row mt-1">
+            <label for="quantity" class="col-sm-2 col-form-label">Quantity:</label>
+            <div class="col-sm-4">
+                <input class="form-control" asp-for="@Model.Item.Quantity">
+            </div>
+            <label for="measurementUnit" class="col-sm-1 col-form-label">Unit:</label>
+            <div class="col-sm-5">
+                <select class="form-control" asp-for="@Model.Item.MeasurementUnitId">
+                    <option value="">Select Unit...</option>
+                    @foreach (var unit in Model.MeasurementUnits)
+                    {
+                        <option value="@unit.UnitId">@unit.UnitName</option>
+                    }
+                </select>
             </div>
         </div>
         <div class="form-group row mt-1">
-            <label for="storageLocation" class="col-sm-3 col-form-label">Storage Location:</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="storageLocation" name="StorageLocation" value="@Model.Item.StorageLocation">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <span class="text-danger" asp-validation-for="@Model.Item.Quantity"></span>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5">
+                <span class="text-danger" asp-validation-for="@Model.Item.MeasurementUnitId"></span>
+            </div>
+        </div>
+
+        <!--Price-->
+        <div class="form-group row mt-1">
+            <label for="price" class="col-sm-2 col-form-label">Price (PLN):</label>
+            <div class="col-sm-4">
+                <input class="form-control" asp-for="@Model.Item.PriceWithoutVat">
             </div>
         </div>
         <div class="form-group row mt-1">
-            <label for="contactPerson" class="col-sm-3 col-form-label">Contact Person:</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="contactPerson" name="ContactPerson" value="@Model.Item.ContactPerson">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <span class="text-danger" asp-validation-for="@Model.Item.PriceWithoutVat"></span>
+            </div>
+        </div>
+
+        <!--Storage-->
+        <div class="form-group row mt-1">
+            <label for="storageLocation" class="col-sm-2 col-form-label">Storage Location:</label>
+            <div class="col-sm-10">
+                <input class="form-control" asp-for="@Model.Item.StorageLocation">
             </div>
         </div>
         <div class="form-group row mt-1">
-            <label for="itemGroup" class="col-sm-3 col-form-label">Group:</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="itemGroup" name="ItemGroup" value="@Model.Item.ItemGroup">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <span class="text-danger" asp-validation-for="@Model.Item.StorageLocation"></span>
+            </div>
+        </div>
+
+        <!--Contact Person-->
+        <div class="form-group row mt-1">
+            <label for="contactPerson" class="col-sm-2 col-form-label">Contact Person:</label>
+            <div class="col-sm-10">
+                <input class="form-control" asp-for="@Model.Item.ContactPerson">
             </div>
         </div>
         <div class="form-group row mt-1">
-            <label for="photo" class="col-sm-3 col-form-label">Photo:</label>
-            <div class="col-sm-9">
-                <input type="file" class="form-control-file" id="photo" name="Photo">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <span class="text-danger" asp-validation-for="@Model.Item.ContactPerson"></span>
+            </div>
+        </div>
+
+        <!--Photo file-->
+        <div class="form-group row mt-1">
+            <label for="photo" class="col-sm-2 col-form-label">Photo:</label>
+            <div class="col-sm-2">
                 @if (Model.Item.PhotoBinary != null && Model.Item.PhotoBinary.Length > 0)
                 {
                     <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Item.PhotoBinary))" alt="Item Photo" style="max-height: 70px;">
@@ -63,16 +151,24 @@
                 else
                 {
                     <img src="~/images/no_photo.jpg" alt="No Photo" style="max-height: 70px;">
-                    }
+                }
+            </div>
+            <div class="col-sm-8  d-flex align-items-center">
+                <input type="file" class="form-control-file"
+                       id="photo" asp-for="@Model.PhotoFile">
+                <small class="form-text text-muted">Max file size: 1 MB</small>
             </div>
         </div>
+        <div class="form-group row mt-1">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8">
+                <span class="text-danger" asp-validation-for="PhotoFile"></span>
+            </div>
+        </div>
+
+        <!--Submit Button-->
         <div class="text-right">
-            <button type="submit" class="btn btn-primary m-2">Save changes</button>
+            <button type="submit" class="btn btn-primary m-2" asp-page-handler="UpdateItem">Save changes</button>
         </div>
     </form>
-
 </div>
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/order.js"></script>
-}

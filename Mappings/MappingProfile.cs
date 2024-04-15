@@ -9,6 +9,12 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<AddItemDto, Item>();
+        CreateMap<EditItemDto, Item>();
+        CreateMap<EditItemDto, Item>().ReverseMap()
+             .ForMember(dest => dest.PhotoBinary, opt => opt.MapFrom(
+                 src => src.Photo != null ? src.Photo!.PhotoBinary : null
+                 )); ;
+
         CreateMap<ItemGroupDto, ItemGroup>();
         CreateMap<MeasurementUnitDto, MeasurementUnit>();
         CreateMap<ItemStatusDto, ItemStatus>();

@@ -11,9 +11,9 @@ public interface IItemsService
 {
     Task AddItem([FromForm] AddItemDto dto);
     Task DeleteItem(int id);
-    Task<ItemDto> GetItem(int id);
+    Task<EditItemDto> GetItemToEdit(int id);
     Task<List<ItemDto>> GetItems();
-    Task UpdateItem(ItemDto updated);
+    Task UpdateItem(EditItemDto dto);
 }
 
 public class ItemsService : IItemsService
@@ -39,7 +39,7 @@ public class ItemsService : IItemsService
         return result;
     }
 
-    public async Task<ItemDto> GetItem(int id)
+    public async Task<EditItemDto> GetItemToEdit(int id)
     {
         var items = _context.Items
             .Include(i => i.ItemGroup)
@@ -47,7 +47,7 @@ public class ItemsService : IItemsService
             .Include(i => i.ItemStatus)
             .Include(i => i.Photo)
             .FirstOrDefault(i => i.ItemId == id);
-        var result = _mapper.Map<ItemDto>(items);
+        var result = _mapper.Map<EditItemDto>(items);
 
         return result;
     }
@@ -70,22 +70,44 @@ public class ItemsService : IItemsService
         }
     }
 
-
-    public async Task UpdateItem(ItemDto updated)
+    public async Task UpdateItem(EditItemDto dto)
     {
-        var item = await _context.Items.FindAsync(updated.ItemId);
+        var item = await _context.Items.FindAsync(dto.ItemId);
         if (item == null)
-        {
             return;
+
+        var updated = _mapper.Map<Item>(dto);
+
+        var oldPhoto = await _context.Photos.FindAsync(item.PhotoId);
+        if (oldPhoto != null)
+        {
+            oldPhoto.PhotoBinary = dto.PhotoBinary;
+            await _context.SaveChangesAsync();
+            updated.PhotoId = oldPhoto.PhotoId;
+        }
+        else
+        {
+            var photo = new Photo { PhotoBinary = dto.PhotoBinary };
+            _context.Photos.Add(photo);
+            await _context.SaveChangesAsync();
+            updated.PhotoId = photo.PhotoId;
         }
 
-        _context.Entry(item).CurrentValues.SetValues(updated); // no mapping needed for props
-        // TODO edit other tables
+        _context.Entry(item).CurrentValues.SetValues(updated); 
         await _context.SaveChangesAsync();
     }
+
     public async Task AddItem(AddItemDto dto)
     {
         var item = _mapper.Map<Item>(dto);
+        if (dto.PhotoBinary != null)
+        {
+            var photo = new Photo { PhotoBinary = dto.PhotoBinary };
+            _context.Photos.Add(photo);
+            await _context.SaveChangesAsync();
+            item.PhotoId = photo.PhotoId;
+
+        }
         _context.Items.Add(item);
         await _context.SaveChangesAsync();
     }
