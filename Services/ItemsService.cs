@@ -12,6 +12,7 @@ public interface IItemsService
     Task AddItem([FromForm] AddItemDto dto);
     Task DeleteItem(int id);
     Task<EditItemDto> GetItemToEdit(int id);
+    Task<RequestItemDto> GetItemToOrder(int id);
     Task<List<ItemDto>> GetItems();
     Task UpdateItem(EditItemDto dto);
 }
@@ -48,6 +49,16 @@ public class ItemsService : IItemsService
             .Include(i => i.Photo)
             .FirstOrDefault(i => i.ItemId == id);
         var result = _mapper.Map<EditItemDto>(items);
+
+        return result;
+    }
+
+    public async Task<RequestItemDto> GetItemToOrder(int id)
+    {
+        var items = _context.Items
+            .Include(i => i.MeasurementUnit)
+            .FirstOrDefault(i => i.ItemId == id);
+        var result = _mapper.Map<RequestItemDto>(items);
 
         return result;
     }

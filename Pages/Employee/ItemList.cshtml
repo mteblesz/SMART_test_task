@@ -1,13 +1,10 @@
 ﻿@page
-@model TMAWarehouse.Pages.Coordinator.ItemListsModel
+@model TMAWarehouse.Pages.Employee.ItemListModel
 @{
-    ViewData["Title"] = "Item List";
+    ViewData["Title"] = "Order items";
 }
-<div class="row">
-    <div class="col-auto">
-        <a class="btn btn-success btn-lg" asp-area="" asp-page="/Coordinator/AddItem">Add Item</a>
-    </div>
-</div>
+
+<h1>Order items</h1>
 
 <table class="table_">
     <thead>
@@ -49,9 +46,9 @@
                     <td>@(item.ContactPerson ?? "-")</td>
                     <td>@item.ItemGroup</td>
                     <td>
-                        <form method="get" asp-page="/Coordinator/EditItem">
+                        <form method="get" asp-page="/Employee/OrderItem">
                             <input type="hidden" name="id" value="@item.ItemId" />
-                            <button type="submit" class="btn btn-warning ">Edit</button>
+                            <button type="submit" class="btn btn-primary ">Order</button>
                         </form>
                     </td>
                 </tr>

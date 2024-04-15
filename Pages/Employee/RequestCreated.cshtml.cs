@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace TMAWarehouse.Pages.Employee
 {
-    public class ItemsListModel : PageModel
+    public class RequestCreatedModel : PageModel
     {
         public void OnGet()
         {
