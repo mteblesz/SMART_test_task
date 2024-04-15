@@ -37,7 +37,7 @@ namespace TMAWarehouse.Pages.Coordinator
             ItemGroups = await _enumsService.GetItemGroups();
             ItemStatuses = await _enumsService.GetItemStatuses();
 
-            Item = await _itemsService.GetItemToEdit(id);
+            Item = await _itemsService.GetItem(id);
 
             return Page();
         }

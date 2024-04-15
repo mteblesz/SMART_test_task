@@ -30,7 +30,7 @@ public class ItemsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<EditItemDto>> GetItem([FromRoute]int id)
     {
-        var result = await _service.GetItemToEdit(id);
+        var result = await _service.GetItem(id);
         return Ok(result);
     }
 
