@@ -9,6 +9,13 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<AddItemDto, Item>();
+        CreateMap<ItemGroupDto, ItemGroup>();
+        CreateMap<MeasurementUnitDto, MeasurementUnit>();
+        CreateMap<ItemStatusDto, ItemStatus>();
+        CreateMap<ItemGroupDto, ItemGroup>().ReverseMap();
+        CreateMap<MeasurementUnitDto, MeasurementUnit>().ReverseMap();
+        CreateMap<ItemStatusDto, ItemStatus>().ReverseMap();
+
         CreateMap<Item, ItemDto>()
              .ForMember(dest => dest.ItemGroup, opt => opt.MapFrom(src => src.ItemGroup.GroupName))
              .ForMember(dest => dest.MeasurementUnit, opt => opt.MapFrom(src => src.MeasurementUnit.UnitName))

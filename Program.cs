@@ -12,6 +12,7 @@ builder.Services.AddDbContext<TmaDbContext>();
 builder.Services.AddScoped<DbSeeder>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IItemsService, ItemsService>();
+builder.Services.AddScoped<IEnumsService, EnumsService>();
 
 // Add Razor Pages Services
 builder.Services.AddRazorPages();

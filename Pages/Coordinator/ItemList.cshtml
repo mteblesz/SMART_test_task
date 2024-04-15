@@ -2,7 +2,14 @@
 @using TMAWarehouse.DTOs
 @model ItemListsModel
 
-<h1>List of Items</h1>
+<div class="row">
+    <div class="col">
+        <h1>List of Items</h1>
+    </div>
+    <div class="col-auto">
+        <a class="btn btn-success btn-lg" asp-area="" asp-page="/Coordinator/AddItem">Add Item</a>
+    </div>
+</div>
 
 <table class="table_">
     <thead>
@@ -16,7 +23,6 @@
             <th>Contact Person</th>
             <th>Group</th>
             <th>
-                <a class="btn btn-success" asp-area="" asp-page="/Coordinator/AddItem">Add Item</a>
             </th>
         </tr>
     </thead>
