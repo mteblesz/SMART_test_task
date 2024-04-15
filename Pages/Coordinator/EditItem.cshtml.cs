@@ -36,6 +36,7 @@ namespace TMAWarehouse.Pages.Coordinator
             MeasurementUnits = await _enumsService.GetMeasurementUnits();
             ItemGroups = await _enumsService.GetItemGroups();
             ItemStatuses = await _enumsService.GetItemStatuses();
+
             Item = await _itemsService.GetItemToEdit(id);
 
             return Page();
@@ -43,7 +44,15 @@ namespace TMAWarehouse.Pages.Coordinator
 
         public async Task<IActionResult> OnPostDeleteItem()
         {
-            await _itemsService.DeleteItem(Item.ItemId);
+            try
+            {
+                await _itemsService.DeleteItem(Item.ItemId);
+            }
+            catch (ArgumentException ex)
+            {
+                ModelState.AddModelError("Deletion", ex.Message);
+                return Page();
+            }
 
             return RedirectToPage("/Coordinator/ItemList");
         }
