@@ -1,4 +1,94 @@
 ﻿@page
 @model TMAWarehouse.Pages.Coordinator.RequestListModel
 @{
+    ViewData["Title"] = "Request List";
+}
+
+
+<div class="form-group row mt-1">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+        <span class="text-danger" asp-validation-for="@Model.Request"></span>
+    </div>
+</div>
+<table class="table_">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price (PLN)</th>
+            <th>Contact Person</th>
+            <th>Storage Location</th>
+            <th>Requested by</th>
+            <th>Comment</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Requests.Any())
+        {
+            @foreach (var req in Model.Requests)
+            {
+                <tr>
+                    <td>
+                        @if (req.Item.PhotoBinary != null && req.Item.PhotoBinary.Length > 0)
+                        {
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(req.Item.PhotoBinary))" alt="Item Photo" style="max-height: 70px;">
+                        }
+                        else
+                        {
+                            <img src="~/images/no_photo.jpg" alt="No Photo" style="max-height: 70px;">
+                        }
+                    </td>
+                    <td>@req.Item.ItemName</td>
+                    <td>@req.Quantity @req.MeasurementUnitName</td>
+                    <td>@req.PriceWithoutVat</td>
+
+                    <td>@(req.Item.ContactPerson ?? "-")</td>
+                    <td>@(req.Item.StorageLocation ?? "-")</td>
+                    <td>@req.EmployeeName</td>
+                    <td>@req.Comment</td>
+                    <td><strong>@req.RequestStatusName</strong></td>
+                    <td>
+                        @if (req.RequestStatusName == "New")
+                        {
+                            <form method="post" enctype="multipart/form-data" asp-page-handler="asp-page-handler">
+                                <input type="hidden" name="id" value="@req.RequestId" />
+                                <div class="row d-flex justify-content-between">
+                                        <div class="col">
+                                        <button type="submit" class="btn btn-success m-2" asp-page-handler="Confirm">Confirm</button>
+
+                                    </div>
+                                        <div class="col">
+                                        <button type="submit" class="btn btn-danger m-2" asp-page-handler="Reject">Reject</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="2">No requests found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.table_').DataTable();
+        });
+    </script>
+
 }

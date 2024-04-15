@@ -10,7 +10,7 @@ public class ItemDto
 
     public required string ItemGroup { get; set; }
 
-    public required string MeasurementUnit { get; set; }
+    public required string MeasurementUnitName { get; set; }
 
     public int Quantity { get; set; }
 

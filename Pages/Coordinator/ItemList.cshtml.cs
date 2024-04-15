@@ -5,13 +5,13 @@ using TMAWarehouse.DTOs;
 using TMAWarehouse.Services;
 
 namespace TMAWarehouse.Pages.Coordinator;
-public class ItemListsModel : PageModel
+public class ItemListModel : PageModel
 {
     public List<ItemDto> Items { get; set; } = null!;
 
     private readonly IItemsService _itemsService;
 
-    public ItemListsModel(IItemsService itemsService)
+    public ItemListModel(IItemsService itemsService)
     {
         _itemsService = itemsService;
     }

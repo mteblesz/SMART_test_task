@@ -1,5 +1,5 @@
 ﻿@page
-@model TMAWarehouse.Pages.Coordinator.ItemListsModel
+@model TMAWarehouse.Pages.Coordinator.ItemListModel
 @{
     ViewData["Title"] = "Item List";
 }
@@ -20,7 +20,7 @@
             <th>Storage Location</th>
             <th>Contact Person</th>
             <th>Group</th>
-            <th>
+            <th>s
             </th>
         </tr>
     </thead>
@@ -41,8 +41,8 @@
                         }
                     </td>
                     <td>@item.ItemName</td>
-                    <td>@item.ItemStatus</td>s
-                    <td>@item.Quantity @item.MeasurementUnit</td>
+                    <td>@item.ItemStatus</td>
+                    <td>@item.Quantity @item.MeasurementUnitName</td>
                     <td>@item.PriceWithoutVat</td>
 
                     <td>@(item.StorageLocation ?? "-")</td>

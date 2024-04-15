@@ -24,7 +24,7 @@ public class MappingProfile : Profile
 
         CreateMap<Item, ItemDto>()
              .ForMember(dest => dest.ItemGroup, opt => opt.MapFrom(src => src.ItemGroup.GroupName))
-             .ForMember(dest => dest.MeasurementUnit, opt => opt.MapFrom(src => src.MeasurementUnit.UnitName))
+             .ForMember(dest => dest.MeasurementUnitName, opt => opt.MapFrom(src => src.MeasurementUnit.UnitName))
              .ForMember(dest => dest.ItemStatus, opt => opt.MapFrom(src => src.ItemStatus.StatusName))
              .ForMember(dest => dest.PhotoBinary, opt => opt.MapFrom(
                  src => src.Photo != null ? src.Photo!.PhotoBinary : null
@@ -34,5 +34,9 @@ public class MappingProfile : Profile
              .ForMember(dest => dest.MeasurementUnitName, opt => opt.MapFrom(src => src.MeasurementUnit.UnitName))
              .ForMember(dest => dest.MaxQuantity, opt => opt.MapFrom(src => src.Quantity))
              .ForMember(dest => dest.OrderQuantity, opt => opt.MapFrom(src => src.Quantity));
+
+        CreateMap<Request, RequestDto>()
+             .ForMember(dest => dest.MeasurementUnitName, opt => opt.MapFrom(src => src.MeasurementUnit.UnitName))
+             .ForMember(dest => dest.RequestStatusName, opt => opt.MapFrom(src => src.RequestStatus.StatusName));
     }
 }
